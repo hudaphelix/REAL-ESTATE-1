@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="about.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+        integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" rel="stylesheet" />
+</head>
+
+<body>
+    <section class="real-estate-section">
+          <!-- Navbar -->
+  <header class="navbar">
+  <div class="logo">
+    <i class="fas fa-chart-bar"></i>
+    <span>PHELIX</span>
+  </div>
+
+  <div class="hamburger" id="hamburger">
+    <i class="fas fa-bars"></i>
+  </div>
+
+  <nav class="nav-links" id="navLinks">
+     <a href="index.html"><span class="hover-animate-text"><span class="text-top">HOME</span><span class="text-bottom">HOME</span></span></a>
+    <a href="about.html"><span class="hover-animate-text"><span class="text-top">ABOUT</span><span class="text-bottom">ABOUT</span></span></a>
+    <a href="contact.html"><span class="hover-animate-text"><span class="text-top">CONTACT</span><span class="text-bottom">CONTACT</span></span></a>
+    <a href="properties.html"><span class="hover-animate-text"><span class="text-top">PROPERTIES</span><span class="text-bottom">PROPERTIES</span></span></a>
+    <a href="#">
+      <span class="hover-animate-text">
+        <span class="text-top">CART</span>
+        <span class="text-bottom">CART</span>
+      </span>
+      <span class="cart-count">0</span>
+    </a>
+
+     <!-- Explore button for mobile view -->
+  <button class="explore-btn mobile-only" onclick="window.location.href='properties.html'">
+  <span class="diamond">◆</span>
+  <span class="hover-animate-text">
+    <span class="text-top">EXPLORE PROPERTIES</span>
+    <span class="text-bottom">EXPLORE PROPERTIES</span>
+  </span>
+  <span class="diamond">◆</span>
+</button>
+
+  </nav>
+
+  <!-- Explore button for desktop view -->
+  <button class="explore-btn desktop-only" onclick="window.location.href='properties.html'">
+  <span class="diamond">◆</span>
+  <span class="hover-animate-text">
+    <span class="text-top">EXPLORE PROPERTIES</span>
+    <span class="text-bottom">EXPLORE PROPERTIES</span>
+  </span>
+  <span class="diamond">◆</span>
+</button>
+
+</header>
+<script>
+  const hamburger = document.getElementById('hamburger');
+  const navLinks = document.getElementById('navLinks');
+
+  hamburger.addEventListener('click', () => {
+    navLinks.classList.toggle('open');
+  });
+</script>
+
+        <main class="hero-section">
+            <p class="subheading">FIND YOUR DREAM HOME</p>
+            <h1 class="heading">Where Dreams<br><span>meet homes</span></h1>
+
+            <div class="photo-gallery">
+                <div class="card">
+                    <div class="inner"><img src="Images/frame 1.png" class="front"><img src="Images/Frame 15.png"
+                            class="back"></div>
+                </div>
+                <div class="card">
+                    <div class="inner"><img src="Images/frame 2.png" class="front"><img src="Images/frame 2.png"
+                            class="back"></div>
+                </div>
+                <div class="card">
+                    <div class="inner"><img src="Images/frame 5.png" class="front"><img src="Images/frame 4.png"
+                            class="back"></div>
+                </div>
+                <div class="card">
+                    <div class="inner"><img src="Images/frame 1.png" class="front"><img src="Images/Frame 15.png"
+                            class="back"></div>
+                </div>
+                <div class="card">
+                    <div class="inner"><img src="Images/Frame 3.png" class="front"><img src="Images/Frame 15.png"
+                            class="back"></div>
+                </div>
+            </div>
+        </main>
+
+        <script>
+            const cards = document.querySelectorAll('.card');
+            const gallery = document.querySelector('.photo-gallery');
+
+            // Position cards in a curved layout with spacing and depth
+            function positionCards() {
+                const totalCards = cards.length;
+                const viewportWidth = window.innerWidth;
+                const cardWidth = Math.min(160, viewportWidth * 0.18);
+                const cardHeight = cardWidth * 1.4;
+
+                const spreadRadius = Math.min(viewportWidth * 0.5, 6000); // make spread tighter like your screenshot
+                const centerX = 0;
+                const centerY = 0;
+                const maxAngle = Math.PI / 2; // 60° curve
+                const angleStep = (totalCards > 1) ? maxAngle / (totalCards - 1) : 0;
+
+                cards.forEach((card, index) => {
+                    const angle = -maxAngle / 2 + index * angleStep;
+                    const x = Math.sin(angle) * spreadRadius;
+                    const y = Math.cos(angle) * spreadRadius * 0.4; // controls the arc height
+
+                    const rotation = angle * 180 / Math.PI * 0.5;
+                    const scale = 1.05;
+
+                    card.style.transition = 'all 0.5s ease';
+                    card.style.transform = `translate(calc(50% + ${x}px), ${-y - 20}px) rotate(${rotation}deg) scale(${scale})`;
+                    card.style.width = `${cardWidth}px`;
+                    card.style.height = `${cardHeight}px`;
+                    card.style.marginLeft = `-${cardWidth / 2}px`;
+                    card.style.zIndex = 100 - Math.abs(index - totalCards / 2);
+                    card.style.opacity = '1';
+                    card.style.visibility = 'visible';
+                });
+
+                gallery.style.height = `${cardHeight + 100}px`;
+                gallery.style.padding = '20px 0';
+                gallery.style.margin = '40px 0';
+                gallery.style.overflow = 'visible';
+            }
+
+
+            // Flip all cards one by one and then back after a pause
+            function createFlipSequence(cards) {
+                const flipDuration = 1200; // slow flip
+                const delayBetweenFlips = 300;
+                const pauseAfterSet = 4000;
+                let isFlipped = false;
+
+                function flipCard(card, flip) {
+                    const inner = card.querySelector('.inner');
+                    inner.style.transform = flip ? 'rotateY(180deg)' : 'rotateY(0deg)';
+                }
+
+                function startFlipping(index = 0) {
+                    if (index >= cards.length) {
+                        // All cards flipped, wait and flip back
+                        setTimeout(() => {
+                            isFlipped = !isFlipped;
+                            startFlipping(0);
+                        }, pauseAfterSet);
+                        return;
+                    }
+
+                    flipCard(cards[index], !isFlipped);
+
+                    setTimeout(() => {
+                        startFlipping(index + 1);
+                    }, delayBetweenFlips);
+                }
+
+                cards.forEach(card => {
+                    const inner = card.querySelector('.inner');
+                    inner.style.transition = `transform ${flipDuration}ms cubic-bezier(0.4, 0, 0.2, 1)`;
+                    inner.style.transformStyle = 'preserve-3d';
+                });
+
+                startFlipping(); // Start the animation loop
+            }
+
+            window.addEventListener('load', () => {
+                positionCards();
+
+                let resizeTimer;
+                window.addEventListener('resize', () => {
+                    clearTimeout(resizeTimer);
+                    resizeTimer = setTimeout(positionCards, 250);
+                });
+
+                createFlipSequence([...cards]);
+            });
+        </script>
+
+        <!-- section 2 -->
+        <div class="title">Trusted by:</div>
+
+        <div class="brand-marquee-wrapper">
+        <div class="brand-marquee">
+            <img loading="lazy"
+                src="https://cdn.prod.website-files.com/67ec42f339f734bb9b78ef8c/67ec42f339f734bb9b78f01e_Delaware.svg"
+                alt="" class="partner-logo">
+            <img loading="lazy"
+                src="https://cdn.prod.website-files.com/67ec42f339f734bb9b78ef8c/67ec42f339f734bb9b78f020_Sweden.svg"
+                alt="" class="partner-logo">
+            <img loading="lazy"
+                src="https://cdn.prod.website-files.com/67ec42f339f734bb9b78ef8c/67ec42f339f734bb9b78f01f_Springfield.svg"
+                alt="" class="partner-logo">
+            <img loading="lazy"
+                src="https://cdn.prod.website-files.com/67ec42f339f734bb9b78ef8c/67ec42f339f734bb9b78f01d_Monaco.svg"
+                alt="" class="partner-logo">
+            <img loading="lazy"
+                src="https://cdn.prod.website-files.com/67ec42f339f734bb9b78ef8c/67ec42f339f734bb9b78f01c_Amsterdam.svg"
+                alt="" class="partner-logo">
+            <img loading="lazy"
+                src="https://cdn.prod.website-files.com/67ec42f339f734bb9b78ef8c/67ec42f339f734bb9b78f01b_Umbrella.svg"
+                alt="" class="partner-logo">
+
+        </div>
+        </div>
+
+        <!-- section 3 -->
+        <section class="our-journey-section">
+            <h4 class="section-subtitle">OUR STORY</h4>
+            <h2 class="section-title">OUR JOURNEY</h2>
+
+            <div class="journey-content">
+                <div class="text-block">
+                    <p>
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse varius enim in eros
+                        elementum tristique. Duis cursus, mi quis viverra ornare, eros dolor interdum nulla, ut
+                        commodo diam
+                        libero vitae erat.
+                    </p>
+                </div>
+
+                <div class="image-block reveal">
+                    <div class="door-wrapper">
+                        <img src="images/Frame 15.png" alt="Our Journey Image" />
+                        <div class="door left-door"></div>
+                        <div class="door right-door"></div>
+                    </div>
+                </div>
+
+                <div class="text-block">
+                    <p>
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse varius enim in eros
+                        elementum tristique. Duis cursus, mi quis viverra ornare, eros dolor interdum nulla, ut
+                        commodo diam
+                        libero vitae erat.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+
+        <div class="button-group">
+            <a href="#" class="slide-icon">
+                <div class="text-wrapper">
+                    <span><i class="fa-brands fa-instagram"></i></span>
+                    <span><i class="fa-brands fa-instagram"></i></span>
+                </div>
+            </a>
+            <a href="#" class="slide-icon">
+                <div class="text-wrapper">
+                    <span><i class="fa-brands fa-x-twitter"></i></span>
+                    <span><i class="fa-brands fa-x-twitter"></i></span>
+                </div>
+            </a>
+
+            <a href="#" class="slide-button">
+                <div class="text-wrapper">
+                    <span>◆ EXPLORE PROPERTIES ◆</span>
+                    <span>◆ EXPLORE PROPERTIES ◆</span>
+                </div>
+            </a>
+
+            <a href="#" class="slide-icon">
+                <div class="text-wrapper">
+                    <span><i class="fa-brands fa-linkedin-in"></i></span>
+                    <span><i class="fa-brands fa-linkedin-in"></i></span>
+                </div>
+            </a>
+            <a href="#" class="slide-icon">
+                <div class="text-wrapper">
+                    <span><i class="fa-brands fa-facebook-f"></i></span>
+                    <span><i class="fa-brands fa-facebook-f"></i></span>
+                </div>
+            </a>
+        </div>
+
+        <!-- section 4 -->
+        <section class="stats-section">
+            <!-- YEARS OF EXPERIENCE -->
+            <div class="stat-row">
+                <div class="stat-left">
+                    <span class="suffix">+</span>
+                    <div class="odometer" data-number="10">
+                        <div class="digit-track">
+                            <div>0<br>1<br>2<br>3<br>4<br>5<br>6<br>7<br>8<br>9</div>
+                        </div>
+                        <div class="digit-track">
+                            <div>0<br>1<br>2<br>3<br>4<br>5<br>6<br>7<br>8<br>9</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="stat-center">
+                    <div class="stat-title">YEARS OF EXPERIENCE</div>
+                </div>
+                <div class="stat-right">
+                    <p>A decade of real estate excellence and market knowledge.</p>
+                </div>
+            </div>
+
+            <!-- TOTAL SALES VOLUME -->
+            <div class="stat-row">
+                <div class="stat-left">
+                    <div class="odometer" data-number="80">
+                        <div class="digit-track">
+                            <div>0<br>1<br>2<br>3<br>4<br>5<br>6<br>7<br>8<br>9</div>
+                        </div>
+                        <div class="digit-track">
+                            <div>0<br>1<br>2<br>3<br>4<br>5<br>6<br>7<br>8<br>9</div>
+                        </div>
+                    </div>
+                    <span class="suffix">M+</span>
+                </div>
+                <div class="stat-center">
+                    <div class="stat-title">TOTAL SALES VOLUME</div>
+                </div>
+                <div class="stat-right">
+                    <p>Over $50 million in real estate transactions closed successfully.</p>
+                </div>
+            </div>
+
+            <!-- PROPERTIES SOLD -->
+            <div class="stat-row">
+                <div class="stat-left">
+                    <div class="odometer" data-number="05">
+                        <div class="digit-track">
+                            <div>0<br>1<br>2<br>3<br>4<br>5<br>6<br>7<br>8<br>9</div>
+                        </div>
+                        <div class="digit-track">
+                            <div>0<br>1<br>2<br>3<br>4<br>5<br>6<br>7<br>8<br>9</div>
+                        </div>
+                    </div>
+                    <span class="suffix">K+</span>
+                </div>
+                <div class="stat-center">
+                    <div class="stat-title">PROPERTIES SOLD</div>
+                </div>
+                <div class="stat-right">
+                    <p>Successfully closed deals, helping clients find their dream homes.</p>
+                </div>
+            </div>
+        </section>
+
+        <script>
+            function animateOdometers() {
+                const odometers = document.querySelectorAll(".odometer");
+
+                odometers.forEach((odometer) => {
+                    const number = odometer.dataset.number;
+                    const digits = number.split("");
+
+                    const tracks = odometer.querySelectorAll(".digit-track div");
+
+                    digits.forEach((digit, i) => {
+                        const value = parseInt(digit);
+
+                        // Get actual height of current digit-track (responsive-safe)
+                        const digitHeight = tracks[i].parentElement.clientHeight;
+
+                        const translateY = -value * digitHeight;
+
+                        setTimeout(() => {
+                            tracks[i].style.transform = `translateY(${translateY}px)`;
+                        }, i * 300);
+                    });
+                });
+            }
+
+            const observer = new IntersectionObserver((entries, obs) => {
+                entries.forEach((entry) => {
+                    if (entry.isIntersecting) {
+                        animateOdometers();
+                        obs.disconnect();
+                    }
+                });
+            }, { threshold: 0.5 });
+
+            observer.observe(document.querySelector(".stats-section"));
+        </script>
+
+</body>
+
+</html>
