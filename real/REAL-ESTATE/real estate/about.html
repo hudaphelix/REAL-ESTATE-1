@@ -1,0 +1,965 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="about.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+        integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" rel="stylesheet" />
+    <link href="https://fonts.cdnfonts.com/css/butler" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
+
+<!-- Font Awesome -->
+<script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+</head>
+
+<body>
+    <section class="real-estate-section">
+          <!-- Navbar -->
+  <header class="navbar">
+  <div class="logo">
+    <i class="fas fa-chart-bar"></i>
+    <span>PHELIX</span>
+  </div>
+
+  <div class="hamburger" id="hamburger">
+    <i class="fas fa-bars"></i>
+  </div>
+
+  <nav class="nav-links" id="navLinks">
+     <a href="index.html"><span class="hover-animate-text"><span class="text-top">HOME</span><span class="text-bottom">HOME</span></span></a>
+    <a href="about.html"><span class="hover-animate-text"><span class="text-top">ABOUT</span><span class="text-bottom">ABOUT</span></span></a>
+    <a href="contact.html"><span class="hover-animate-text"><span class="text-top">CONTACT</span><span class="text-bottom">CONTACT</span></span></a>
+    <a href="properties.html"><span class="hover-animate-text"><span class="text-top">PROPERTIES</span><span class="text-bottom">PROPERTIES</span></span></a>
+    <a href="#">
+      <span class="hover-animate-text">
+        <span class="text-top">CART</span>
+        <span class="text-bottom">CART</span>
+      </span>
+      <span class="cart-count">0</span>
+    </a>
+
+     <!-- Explore button for mobile view -->
+  <button class="explore-btn mobile-only" onclick="window.location.href='properties.html'">
+  <span class="diamond">◆</span>
+  <span class="hover-animate-text">
+    <span class="text-top">EXPLORE PROPERTIES</span>
+    <span class="text-bottom">EXPLORE PROPERTIES</span>
+  </span>
+  <span class="diamond">◆</span>
+</button>
+
+  </nav>
+
+  <!-- Explore button for desktop view -->
+  <button class="explore-btn desktop-only" onclick="window.location.href='properties.html'">
+  <span class="diamond">◆</span>
+  <span class="hover-animate-text">
+    <span class="text-top">EXPLORE PROPERTIES</span>
+    <span class="text-bottom">EXPLORE PROPERTIES</span>
+  </span>
+  <span class="diamond">◆</span>
+</button>
+
+</header>
+<script>
+  const hamburger = document.getElementById('hamburger');
+  const navLinks = document.getElementById('navLinks');
+
+  hamburger.addEventListener('click', () => {
+    navLinks.classList.toggle('open');
+  });
+</script>
+
+        <main class="hero-section">
+            <p class="subheading">FIND YOUR DREAM HOME</p>
+            <h1 class="heading">Where Dreams<br><span>meet homes</span></h1>
+
+            <div class="photo-gallery">
+                <div class="card">
+                    <div class="inner"><img src="Images/frame 1.png" class="front"><img src="Images/Frame 15.png"
+                            class="back"></div>
+                </div>
+                <div class="card">
+                    <div class="inner"><img src="Images/frame 2.png" class="front"><img src="Images/frame 2.png"
+                            class="back"></div>
+                </div>
+                <div class="card">
+                    <div class="inner"><img src="Images/frame 5.png" class="front"><img src="Images/frame 4.png"
+                            class="back"></div>
+                </div>
+                <div class="card">
+                    <div class="inner"><img src="Images/frame 1.png" class="front"><img src="Images/Frame 15.png"
+                            class="back"></div>
+                </div>
+                <div class="card">
+                    <div class="inner"><img src="Images/Frame 3.png" class="front"><img src="Images/Frame 15.png"
+                            class="back"></div>
+                </div>
+            </div>
+        </main>
+
+        <script>
+            const cards = document.querySelectorAll('.card');
+            const gallery = document.querySelector('.photo-gallery');
+
+            // Position cards in a curved layout with spacing and depth
+            function positionCards() {
+                const totalCards = cards.length;
+                const viewportWidth = window.innerWidth;
+                const cardWidth = Math.min(160, viewportWidth * 0.18);
+                const cardHeight = cardWidth * 1.4;
+
+                const spreadRadius = Math.min(viewportWidth * 0.5, 6000); // make spread tighter like your screenshot
+                const centerX = 0;
+                const centerY = 0;
+                const maxAngle = Math.PI / 2; // 60° curve
+                const angleStep = (totalCards > 1) ? maxAngle / (totalCards - 1) : 0;
+
+                cards.forEach((card, index) => {
+                    const angle = -maxAngle / 2 + index * angleStep;
+                    const x = Math.sin(angle) * spreadRadius;
+                    const y = Math.cos(angle) * spreadRadius * 0.4; // controls the arc height
+
+                    const rotation = angle * 180 / Math.PI * 0.5;
+                    const scale = 1.05;
+
+                    card.style.transition = 'all 0.5s ease';
+                    card.style.transform = `translate(calc(50% + ${x}px), ${-y - 20}px) rotate(${rotation}deg) scale(${scale})`;
+                    card.style.width = `${cardWidth}px`;
+                    card.style.height = `${cardHeight}px`;
+                    card.style.marginLeft = `-${cardWidth / 2}px`;
+                    card.style.zIndex = 100 - Math.abs(index - totalCards / 2);
+                    card.style.opacity = '1';
+                    card.style.visibility = 'visible';
+                });
+
+                gallery.style.height = `${cardHeight + 100}px`;
+                gallery.style.padding = '20px 0';
+                gallery.style.margin = '40px 0';
+                gallery.style.overflow = 'visible';
+            }
+
+
+            // Flip all cards one by one and then back after a pause
+            function createFlipSequence(cards) {
+                const flipDuration = 1200; // slow flip
+                const delayBetweenFlips = 300;
+                const pauseAfterSet = 4000;
+                let isFlipped = false;
+
+                function flipCard(card, flip) {
+                    const inner = card.querySelector('.inner');
+                    inner.style.transform = flip ? 'rotateY(180deg)' : 'rotateY(0deg)';
+                }
+
+                function startFlipping(index = 0) {
+                    if (index >= cards.length) {
+                        // All cards flipped, wait and flip back
+                        setTimeout(() => {
+                            isFlipped = !isFlipped;
+                            startFlipping(0);
+                        }, pauseAfterSet);
+                        return;
+                    }
+
+                    flipCard(cards[index], !isFlipped);
+
+                    setTimeout(() => {
+                        startFlipping(index + 1);
+                    }, delayBetweenFlips);
+                }
+
+                cards.forEach(card => {
+                    const inner = card.querySelector('.inner');
+                    inner.style.transition = `transform ${flipDuration}ms cubic-bezier(0.4, 0, 0.2, 1)`;
+                    inner.style.transformStyle = 'preserve-3d';
+                });
+
+                startFlipping(); // Start the animation loop
+            }
+
+            window.addEventListener('load', () => {
+                positionCards();
+
+                let resizeTimer;
+                window.addEventListener('resize', () => {
+                    clearTimeout(resizeTimer);
+                    resizeTimer = setTimeout(positionCards, 250);
+                });
+
+                createFlipSequence([...cards]);
+            });
+        </script>
+
+        <!-- section 2 -->
+        <div class="title">Trusted by:</div>
+
+        <div class="brand-marquee-wrapper">
+        <div class="brand-marquee">
+            <img loading="lazy"
+                src="https://cdn.prod.website-files.com/67ec42f339f734bb9b78ef8c/67ec42f339f734bb9b78f01e_Delaware.svg"
+                alt="" class="partner-logo">
+            <img loading="lazy"
+                src="https://cdn.prod.website-files.com/67ec42f339f734bb9b78ef8c/67ec42f339f734bb9b78f020_Sweden.svg"
+                alt="" class="partner-logo">
+            <img loading="lazy"
+                src="https://cdn.prod.website-files.com/67ec42f339f734bb9b78ef8c/67ec42f339f734bb9b78f01f_Springfield.svg"
+                alt="" class="partner-logo">
+            <img loading="lazy"
+                src="https://cdn.prod.website-files.com/67ec42f339f734bb9b78ef8c/67ec42f339f734bb9b78f01d_Monaco.svg"
+                alt="" class="partner-logo">
+            <img loading="lazy"
+                src="https://cdn.prod.website-files.com/67ec42f339f734bb9b78ef8c/67ec42f339f734bb9b78f01c_Amsterdam.svg"
+                alt="" class="partner-logo">
+            <img loading="lazy"
+                src="https://cdn.prod.website-files.com/67ec42f339f734bb9b78ef8c/67ec42f339f734bb9b78f01b_Umbrella.svg"
+                alt="" class="partner-logo">
+
+        </div>
+        </div>
+
+        <!-- section 3 -->
+        <section class="our-journey-section">
+            <h4 class="section-subtitle">OUR STORY</h4>
+            <h2 class="section-title">OUR JOURNEY</h2>
+
+            <div class="journey-content">
+                <div class="text-block">
+                    <p>
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse varius enim in eros
+                        elementum tristique. Duis cursus, mi quis viverra ornare, eros dolor interdum nulla, ut
+                        commodo diam
+                        libero vitae erat.
+                    </p>
+                </div>
+
+                <div class="image-block reveal">
+                    <div class="door-wrapper">
+                        <img src="images/Frame 15.png" alt="Our Journey Image" />
+                        <div class="door left-door"></div>
+                        <div class="door right-door"></div>
+                    </div>
+                </div>
+
+                <div class="text-block">
+                    <p>
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse varius enim in eros
+                        elementum tristique. Duis cursus, mi quis viverra ornare, eros dolor interdum nulla, ut
+                        commodo diam
+                        libero vitae erat.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+
+        <div class="button-group">
+            <a href="#" class="slide-icon">
+                <div class="text-wraper">
+                    <span><i class="fa-brands fa-instagram"></i></span>
+                    <span><i class="fa-brands fa-instagram"></i></span>
+                </div>
+            </a>
+            <a href="#" class="slide-icon">
+                <div class="text-wraper">
+                    <span><i class="fa-brands fa-x-twitter"></i></span>
+                    <span><i class="fa-brands fa-x-twitter"></i></span>
+                </div>
+            </a>
+
+            <a href="#" class="slide-button">
+                <div class="text-wraper">
+                    <span>◆ EXPLORE PROPERTIES ◆</span>
+                    <span>◆ EXPLORE PROPERTIES ◆</span>
+                </div>
+            </a>
+
+            <a href="#" class="slide-icon">
+                <div class="text-wraper">
+                    <span><i class="fa-brands fa-linkedin-in"></i></span>
+                    <span><i class="fa-brands fa-linkedin-in"></i></span>
+                </div>
+            </a>
+            <a href="#" class="slide-icon">
+                <div class="text-wraper">
+                    <span><i class="fa-brands fa-facebook-f"></i></span>
+                    <span><i class="fa-brands fa-facebook-f"></i></span>
+                </div>
+            </a>
+        </div>
+
+        <!-- section 4 -->
+        <section class="stats-section">
+            <!-- YEARS OF EXPERIENCE -->
+            <div class="stat-row">
+                <div class="stat-left">
+                    <span class="suffix">+</span>
+                    <div class="odometer" data-number="10">
+                        <div class="digit-track">
+                            <div>0<br>1<br>2<br>3<br>4<br>5<br>6<br>7<br>8<br>9</div>
+                        </div>
+                        <div class="digit-track">
+                            <div>0<br>1<br>2<br>3<br>4<br>5<br>6<br>7<br>8<br>9</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="stat-center">
+                    <div class="stat-title">YEARS OF EXPERIENCE</div>
+                </div>
+                <div class="stat-right">
+                    <p>A decade of real estate excellence and market knowledge.</p>
+                </div>
+            </div>
+
+            <!-- TOTAL SALES VOLUME -->
+            <div class="stat-row">
+                <div class="stat-left">
+                    <div class="odometer" data-number="80">
+                        <div class="digit-track">
+                            <div>0<br>1<br>2<br>3<br>4<br>5<br>6<br>7<br>8<br>9</div>
+                        </div>
+                        <div class="digit-track">
+                            <div>0<br>1<br>2<br>3<br>4<br>5<br>6<br>7<br>8<br>9</div>
+                        </div>
+                    </div>
+                    <span class="suffix">M+</span>
+                </div>
+                <div class="stat-center">
+                    <div class="stat-title">TOTAL SALES VOLUME</div>
+                </div>
+                <div class="stat-right">
+                    <p>Over $50 million in real estate transactions closed successfully.</p>
+                </div>
+            </div>
+
+            <!-- PROPERTIES SOLD -->
+            <div class="stat-row">
+                <div class="stat-left">
+                    <div class="odometer" data-number="05">
+                        <div class="digit-track">
+                            <div>0<br>1<br>2<br>3<br>4<br>5<br>6<br>7<br>8<br>9</div>
+                        </div>
+                        <div class="digit-track">
+                            <div>0<br>1<br>2<br>3<br>4<br>5<br>6<br>7<br>8<br>9</div>
+                        </div>
+                    </div>
+                    <span class="suffix">K+</span>
+                </div>
+                <div class="stat-center">
+                    <div class="stat-title">PROPERTIES SOLD</div>
+                </div>
+                <div class="stat-right">
+                    <p>Successfully closed deals, helping clients find their dream homes.</p>
+                </div>
+            </div>
+        </section>
+
+        <script>
+            function animateOdometers() {
+                const odometers = document.querySelectorAll(".odometer");
+
+                odometers.forEach((odometer) => {
+                    const number = odometer.dataset.number;
+                    const digits = number.split("");
+
+                    const tracks = odometer.querySelectorAll(".digit-track div");
+
+                    digits.forEach((digit, i) => {
+                        const value = parseInt(digit);
+
+                        // Get actual height of current digit-track (responsive-safe)
+                        const digitHeight = tracks[i].parentElement.clientHeight;
+
+                        const translateY = -value * digitHeight;
+
+                        setTimeout(() => {
+                            tracks[i].style.transform = `translateY(${translateY}px)`;
+                        }, i * 300);
+                    });
+                });
+            }
+
+            const observer = new IntersectionObserver((entries, obs) => {
+                entries.forEach((entry) => {
+                    if (entry.isIntersecting) {
+                        animateOdometers();
+                        obs.disconnect();
+                    }
+                });
+            }, { threshold: 0.5 });
+
+            observer.observe(document.querySelector(".stats-section"));
+        </script>
+
+
+
+<!-- Include Lucide Icons -->
+<script src="https://unpkg.com/lucide@latest"></script>
+
+<section class="values-section">
+  <div class="values-header">
+    <p class="subsheading">WHAT DRIVES US</p>
+    <h1 class="main-heading">
+      <span class="our">OUR</span> <span class="mission">VALUES</span>
+    </h1>
+    <p class="description">
+      We believe in honesty, transparency, and personalized solutions,<br />
+      making your real estate journey smooth and stress-free.
+    </p>
+  </div>
+
+  <div class="values-grid">
+    <!-- First Row -->
+    <div class="value-box">
+      <div class="icon" data-lucide="scale"></div>
+      <h2 class="value-title">INTEGRITY</h2>
+      <p class="value-text">
+        Honesty and transparency guide everything we do,<br />
+        ensuring trust and confidence in every transaction.
+      </p>
+    </div>
+
+    <div class="value-box">
+      <div class="icon" data-lucide="target"></div>
+      <h2 class="value-title">DEDICATED</h2>
+      <p class="value-text">
+        Your goals are our priority. We listen, understand,<br />
+        and tailor our approach to meet your unique needs.
+      </p>
+    </div>
+
+    <div class="value-box">
+      <div class="icon" data-lucide="pie-chart"></div>
+      <h2 class="value-title">EXPERTISE</h2>
+      <p class="value-text">
+        With deep industry knowledge and data-driven<br />
+        insights, we help you make informed real estate decisions.
+      </p>
+    </div>
+
+    <!-- Second Row -->
+    <div class="value-box">
+      <div class="icon" data-lucide="award"></div>
+      <h2 class="value-title">EXCELLENCE</h2>
+      <p class="value-text">
+        We go above and beyond to deliver high-quality<br />
+        service, ensuring a smooth and stress-free experience.
+      </p>
+    </div>
+
+    <div class="value-box">
+      <div class="icon" data-lucide="globe"></div>
+      <h2 class="value-title">INNOVATION</h2>
+      <p class="value-text">
+        We embrace the latest technology and trends to<br />
+        provide modern solutions for buying, selling, and investing.
+      </p>
+    </div>
+
+    <div class="value-box">
+      <div class="icon" data-lucide="handshake"></div>
+      <h2 class="value-title">COMMITMENT</h2>
+      <p class="value-text">
+        We're passionate about building strong<br />
+        communities and making a positive impact beyond just real estate.
+      </p>
+    </div>
+  </div>
+<div class="button-container">
+  <a href="contact.html" class="get-in-touch-btn">
+    <span class="diamond">◆</span>
+    <span class="text-wrapper">
+      <span class="text top">GET IN TOUCH</span>
+      <span class="text bottom">GET IN TOUCH</span>
+    </span>
+    <span class="diamond">◆</span>
+  </a>
+</div>
+</section>
+<script>
+  lucide.createIcons();
+</script>
+
+
+
+
+
+
+
+<section class="mission-section">
+  <div class="mission-header">COMMITTED TO YOU</div>
+  <h2 class="mission-title">
+    <span class="our">OUR</span><span class="mission"> MISSION</span></h2>
+
+  <div class="mission-content">
+<div class="mission-image-wrapper">
+    <img src="https://cdn.prod.website-files.com/67ec42f339f734bb9b78ef8c/67ec42f339f734bb9b78efe7_Frame%2012.5.png" loading="lazy"  srcset="https://cdn.prod.website-files.com/67ec42f339f734bb9b78ef8c/67ec42f339f734bb9b78efe7_Frame%252012.5-p-500.png 500w, https://cdn.prod.website-files.com/67ec42f339f734bb9b78ef8c/67ec42f339f734bb9b78efe7_Frame%252012.5-p-800.png 800w, https://cdn.prod.website-files.com/67ec42f339f734bb9b78ef8c/67ec42f339f734bb9b78efe7_Frame%2012.5.png 920w" alt="A living room with two chairs and a plant." class="mission-image">
+    <div class="overlay left-curtain"></div>
+    <div class="overlay right-curtain"></div>
+  </div>
+
+    <div class="mission-text">
+      <p class="main-text">
+        Our mission is to make real estate simple, seamless, and rewarding for every client. Whether you're buying, selling, or investing, we are committed to providing expert guidance, personalized solutions, and exceptional service.
+      </p>
+      <p class="sub-text">
+        With integrity, innovation, and a deep understanding of the market, we help you navigate every step with confidence—turning your real estate goals into reality.
+      </p>
+<a href="properties.html" class="explore">
+  <span class="diamonds">◆</span>
+  <div class="text-wrappers">
+    <span class="texts top">EXPLORE PROPERTIES</span>
+    <span class="texts bottom">EXPLORE PROPERTIES</span>
+  </div>
+  <span class="diamonds">◆</span>
+</a>
+</div>
+  <div class="mission-image-wrapper">
+    <img src="https://cdn.prod.website-files.com/67ec42f339f734bb9b78ef8c/67ec42f339f734bb9b78effa_Frame%2024.png" loading="lazy"  srcset="https://cdn.prod.website-files.com/67ec42f339f734bb9b78ef8c/67ec42f339f734bb9b78effa_Frame%252024-p-500.png 500w, https://cdn.prod.website-files.com/67ec42f339f734bb9b78ef8c/67ec42f339f734bb9b78effa_Frame%252024-p-800.png 800w, https://cdn.prod.website-files.com/67ec42f339f734bb9b78ef8c/67ec42f339f734bb9b78effa_Frame%2024.png 920w" alt="A living room filled with furniture and large windows." class="mission-image">
+    <div class="overlay left-curtain"></div>
+    <div class="overlay right-curtain"></div>
+  </div>
+</div>
+
+  <div class="mission-line"></div>
+</section>
+
+
+<script>
+  window.addEventListener('scroll', () => {
+    const wrappers = document.querySelectorAll('.mission-image-wrapper');
+
+    wrappers.forEach(wrapper => {
+      const leftCurtain = wrapper.querySelector('.left-curtain');
+      const rightCurtain = wrapper.querySelector('.right-curtain');
+      const rect = wrapper.getBoundingClientRect();
+
+      if (rect.top < window.innerHeight && rect.bottom > 0) {
+        leftCurtain.style.transform = 'translateX(-100%)';
+        rightCurtain.style.transform = 'translateX(100%)';
+      } else {
+        leftCurtain.style.transform = 'translateX(0)';
+        rightCurtain.style.transform = 'translateX(0)';
+      }
+    });
+  });
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- OUR AGENTS SECTION START -->
+<section class="agents-section">
+  <div class="agents-intro">
+    <p class="agents-subtitle">MEET OUR PROFESSIONALS</p>
+    <h2 class="agents-title">
+      <span class="our">OUR</span> <span class="mission">AGENTS</span>
+    </h2>
+  </div>
+
+  <div class="agents-grid">
+    <!-- Agent Card 1 -->
+    <div class="agent-card">
+      <h3>EMILY BENNETT</h3>
+      <p class="role">Real Estate Specialist</p>
+      <hr />
+      <div class="agent-img-wrapper">
+        <a href="agents1.html">
+      <img src="images/agent1.jpg" alt="Emily Bennett" />
+      </a>
+      </div>
+      <p class="description">
+        Emily leads the company with a passion for helping clients find their perfect homes.
+      </p>
+<div class="social-icons">
+  <a href="#" class="icon-link">
+    <div class="icon-hover">
+      <div class="icon-wrap">
+        <span class="icon-top"><i class="fa-brands fa-instagram"></i></span>
+        <span class="icon-bottom"><i class="fa-brands fa-instagram"></i></span>
+      </div>
+    </div>
+  </a>
+
+  <a href="#" class="icon-link">
+    <div class="icon-hover">
+      <div class="icon-wrap">
+        <span class="icon-top"><i class="fa-brands fa-x-twitter"></i></span>
+        <span class="icon-bottom"><i class="fa-brands fa-x-twitter"></i></span>
+      </div>
+    </div>
+  </a>
+  <a href="#" class="icon-link">
+    <div class="icon-hover">
+      <div class="icon-wrap">
+        <span class="icon-top"><i class="fa-brands fa-linkedin-in"></i></span>
+        <span class="icon-bottom"><i class="fa-brands fa-linkedin-in"></i></span>
+      </div>
+    </div>
+  </a>
+  <a href="#" class="icon-link">
+    <div class="icon-hover">
+      <div class="icon-wrap">
+        <span class="icon-top"><i class="fa-brands fa-facebook-f"></i></span>
+        <span class="icon-bottom"><i class="fa-brands fa-facebook-f"></i></span>
+      </div>
+    </div>
+  </a>
+</div>
+</div>
+
+    <!-- Agent Card 2 -->
+    <div class="agent-card">
+      <h3>JAMES CARTER</h3>
+      <p class="role">Real Estate Specialist</p>
+      <hr />
+      <div class="agent-img-wrapper">
+      <a href="agents2.html">
+      <img src="images/agent2.jpg" alt="James Carter" />
+      </a>
+      </div>
+      <p class="description">
+        James is an agent with a keen eye for finding dream homes that meet his clients' needs.
+      </p>
+<div class="social-icons">
+  <a href="#" class="icon-link">
+    <div class="icon-hover">
+      <div class="icon-wrap">
+        <span class="icon-top"><i class="fa-brands fa-instagram"></i></span>
+        <span class="icon-bottom"><i class="fa-brands fa-instagram"></i></span>
+      </div>
+    </div>
+  </a>
+
+  <a href="#" class="icon-link">
+    <div class="icon-hover">
+      <div class="icon-wrap">
+        <span class="icon-top"><i class="fa-brands fa-x-twitter"></i></span>
+        <span class="icon-bottom"><i class="fa-brands fa-x-twitter"></i></span>
+      </div>
+    </div>
+  </a>
+  <a href="#" class="icon-link">
+    <div class="icon-hover">
+      <div class="icon-wrap">
+        <span class="icon-top"><i class="fa-brands fa-linkedin-in"></i></span>
+        <span class="icon-bottom"><i class="fa-brands fa-linkedin-in"></i></span>
+      </div>
+    </div>
+  </a>
+  <a href="#" class="icon-link">
+    <div class="icon-hover">
+      <div class="icon-wrap">
+        <span class="icon-top"><i class="fa-brands fa-facebook-f"></i></span>
+        <span class="icon-bottom"><i class="fa-brands fa-facebook-f"></i></span>
+      </div>
+    </div>
+  </a>
+</div>
+</div>
+
+    <!-- Agent Card 3 -->
+    <div class="agent-card">
+      <h3>SOPHIA REYES</h3>
+      <p class="role">Real Estate Specialist</p>
+      <hr />
+      <div class="agent-img-wrapper">
+        <a href="agents3.html">
+      <img src="images/agent3.jpg" alt="Sophia Reyes" />
+      </a>
+        </div>
+      <p class="description">
+        Sophia’s innovative marketing strategies ensure properties get maximum exposure.
+      </p>
+<div class="social-icons">
+  <a href="#" class="icon-link">
+    <div class="icon-hover">
+      <div class="icon-wrap">
+        <span class="icon-top"><i class="fa-brands fa-instagram"></i></span>
+        <span class="icon-bottom"><i class="fa-brands fa-instagram"></i></span>
+      </div>
+    </div>
+  </a>
+
+  <a href="#" class="icon-link">
+    <div class="icon-hover">
+      <div class="icon-wrap">
+        <span class="icon-top"><i class="fa-brands fa-x-twitter"></i></span>
+        <span class="icon-bottom"><i class="fa-brands fa-x-twitter"></i></span>
+      </div>
+    </div>
+  </a>
+  <a href="#" class="icon-link">
+    <div class="icon-hover">
+      <div class="icon-wrap">
+        <span class="icon-top"><i class="fa-brands fa-linkedin-in"></i></span>
+        <span class="icon-bottom"><i class="fa-brands fa-linkedin-in"></i></span>
+      </div>
+    </div>
+  </a>
+  <a href="#" class="icon-link">
+    <div class="icon-hover">
+      <div class="icon-wrap">
+        <span class="icon-top"><i class="fa-brands fa-facebook-f"></i></span>
+        <span class="icon-bottom"><i class="fa-brands fa-facebook-f"></i></span>
+      </div>
+    </div>
+  </a>
+</div>
+</div>
+
+
+      <!-- Agent Card 4 -->
+    <div class="agent-card">
+      <h3>DANIEL FOSTER</h3>
+      <p class="role">Real Estate Specialist</p>
+      <hr />
+      <div class="agent-img-wrapper">
+      <a href="agents4.html">
+      <img src="images/agent4.jpg" alt="Sophia Reyes" />
+    </a>
+        </div>
+      <p class="description">
+        Daniel advises clients on new opportunities, helping them to expand their portfolios.
+
+      </p>
+ <div class="social-icons">
+  <a href="#" class="icon-link">
+    <div class="icon-hover">
+      <div class="icon-wrap">
+        <span class="icon-top"><i class="fa-brands fa-instagram"></i></span>
+        <span class="icon-bottom"><i class="fa-brands fa-instagram"></i></span>
+      </div>
+    </div>
+  </a>
+
+  <a href="#" class="icon-link">
+    <div class="icon-hover">
+      <div class="icon-wrap">
+        <span class="icon-top"><i class="fa-brands fa-x-twitter"></i></span>
+        <span class="icon-bottom"><i class="fa-brands fa-x-twitter"></i></span>
+      </div>
+    </div>
+  </a>
+  <a href="#" class="icon-link">
+    <div class="icon-hover">
+      <div class="icon-wrap">
+        <span class="icon-top"><i class="fa-brands fa-linkedin-in"></i></span>
+        <span class="icon-bottom"><i class="fa-brands fa-linkedin-in"></i></span>
+      </div>
+    </div>
+  </a>
+  <a href="#" class="icon-link">
+    <div class="icon-hover">
+      <div class="icon-wrap">
+        <span class="icon-top"><i class="fa-brands fa-facebook-f"></i></span>
+        <span class="icon-bottom"><i class="fa-brands fa-facebook-f"></i></span>
+      </div>
+    </div>
+  </a>
+</div>
+</div>
+  </div>
+<div class="all-agents-btn-wrapper">
+  <a href="agents.html" class="all-agents-btn hover-flip">
+    <span class="diamond left">◆</span>
+    <div class="text-wrapper">
+      <span class="text-top">ALL AGENTS</span>
+      <span class="text-bottom">ALL AGENTS</span>
+    </div>
+    <span class="diamond right">◆</span>
+  </a>
+</div>
+
+
+
+</section>
+
+
+
+
+
+
+
+
+
+
+
+<footer class="footer-section">
+  <div class="footer-top">
+    <div class="footer-logo">
+      <img src="https://cdn.prod.website-files.com/67ec42f339f734bb9b78ef8c/67ec4987a6a3b0c1547094d1_footer-logo.svg" loading="lazy" alt="Footer Logo - Urbanus Webflow Template" class="logo-icon logo text">
+    </div>
+    <p class="footer-tagline">FIND YOUR DREAM HOME WITH CONFIDENCE</p>
+  </div>
+
+  <!-- footer navigation -->
+  <nav class="footer-nav">
+    <a href="index.html" class="hover-animate">
+      <div class="texts-wrapper">
+        <span class="texts tops">HOME</span>
+        <span class="texts bottoms">HOME</span>
+      </div>
+    </a>
+    <a href="about.html" class="hover-animate">
+      <div class="texts-wrapper">
+        <span class="texts tops">ABOUT</span>
+        <span class="texts bottoms">ABOUT</span>
+      </div>
+    </a>
+    <a href="properties.html" class="hover-animate">
+      <div class="texts-wrapper">
+        <span class="texts tops">PROPERTIES</span>
+        <span class="texts bottoms">PROPERTIES</span>
+      </div>
+    </a>
+    <a href="#" class="hover-animate">
+      <div class="texts-wrapper">
+        <span class="texts tops">PRICING</span>
+        <span class="texts bottoms">PRICING</span>
+      </div>
+    </a>
+    <a href="blog.html" class="hover-animate">
+      <div class="texts-wrapper">
+        <span class="texts tops">BLOG</span>
+        <span class="texts bottoms">BLOG</span>
+      </div>
+    </a>
+    <a href="contact.html" class="hover-animate">
+      <div class="texts-wrapper">
+        <span class="texts tops">CONTACT</span>
+        <span class="texts bottoms">CONTACT</span>
+      </div>
+    </a>
+  </nav>
+
+  <div class="footer-socials">
+    <a href="#" class="hover-animate">
+      <div class="texts-wrapper">
+        <span class="texts tops"><i class="fab fa-instagram"></i></span>
+        <span class="texts bottoms"><i class="fab fa-instagram"></i></span>
+      </div>
+    </a>
+    <a href="#" class="hover-animate">
+      <div class="texts-wrapper">
+        <span class="texts tops"><i class="fab fa-twitter"></i></span>
+        <span class="texts bottoms"><i class="fab fa-twitter"></i></span>
+      </div>
+    </a>
+    <a href="#" class="hover-animate">
+      <div class="texts-wrapper">
+        <span class="texts tops"><i class="fab fa-linkedin-in"></i></span>
+        <span class="texts bottoms"><i class="fab fa-linkedin-in"></i></span>
+      </div>
+    </a>
+    <a href="#" class="hover-animate">
+      <div class="texts-wrapper">
+        <span class="texts tops"><i class="fab fa-youtube"></i></span>
+        <span class="texts bottoms"><i class="fab fa-youtube"></i></span>
+      </div>
+    </a>
+    <a href="#" class="hover-animate">
+      <div class="texts-wrapper">
+        <span class="texts tops"><i class="fab fa-facebook-f"></i></span>
+        <span class="texts bottoms"><i class="fab fa-facebook-f"></i></span>
+      </div>
+    </a>
+  </div>
+
+  <div class="back-to-top">
+    <a href="#" class="hover-animate">
+      <div class="circle-btn">
+        <span class="texts tops"><i class="fa-solid fa-arrow-up"></i></span>
+        <span class="texts bottoms"><i class="fa-solid fa-arrow-up"></i></span>
+      </div>
+    </a>
+    <div class="back-to-top-text">BACK TO TOP</div>
+  </div>
+
+  <div class="footer-divider"></div>
+
+  <div class="footer-bottom">
+    <div class="footer-left">
+      <div class="hover-animate">
+        <div class="texts-wrapper">
+          <span class="static-text">CREATED BY </span>
+          <span class="animated-text">
+            <span class="texts tops">HUDA SHAIKH</span>
+            <span class="texts bottoms">HUDA SHAIKH</span>
+          </span>
+        </div>
+      </div>
+      <div class="hover-animate">
+        <div class="texts-wrapper">
+          <span class="static-text">POWERED BY</span>
+          <span class="animated-text">
+            <span class="texts tops">WEBFLOW</span>
+            <span class="texts bottoms">WEBFLOW</span>
+          </span>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer-right">
+      <a href="#" class="hover-animate">
+        <div class="texts-wrapper">
+          <span class="texts tops">STYLE GUIDE</span>
+          <span class="texts bottoms">STYLE GUIDE</span>
+        </div>
+      </a>
+      <a href="#" class="hover-animate">
+        <div class="texts-wrapper">
+          <span class="texts tops">LICENSES</span>
+          <span class="texts bottoms">LICENSES</span>
+        </div>
+      </a>
+      <a href="#" class="hover-animate">
+        <div class="texts-wrapper">
+          <span class="texts tops">CHANGELOG</span>
+          <span class="texts bottoms">CHANGELOG</span>
+        </div>
+      </a>
+    </div>
+  </div>
+</footer>
+
+
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const backToTopBtn = document.querySelector(".circle-btn");
+
+    backToTopBtn.addEventListener("click", function (e) {
+      e.preventDefault();
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+      });
+    });
+  });
+</script>
+
+
+
+
+
+</body>
+
+</html>
